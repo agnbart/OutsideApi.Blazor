@@ -1,0 +1,62 @@
+﻿@page "/exchangerates"
+
+@inject IHttpClientFactory _clientFactory
+
+<h1>Rates from NBP API</h1>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (currency is null)
+{
+    <div class="h4">Loading...</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="accordion-body">
+            <tr>
+                <th>Table</th>
+                <th>Effective Date</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+        <tbody>
+                @foreach (var r in currency.rates)
+                {
+                    <tr>
+                        <td>@r.no</td>
+                        <td>@r.effectiveDate</td>
+                        <td>@r.mid</td>
+                    </tr>
+                }
+            </tbody>
+    </table>
+}
+@code
+{
+    Currency? currency;
+    string? errorString;
+    string route = "http://api.nbp.pl/api/exchangerates/rates/a/usd/last/5/?format=json";
+    string route1 = "http://api.nbp.pl/api/exchangerates/rates/a/usd/?format=json";
+    string route2 = "http://api.nbp.pl/api/exchangerates/rates/a/gbp/last/100/?format=json";
+    protected override async Task OnInitializedAsync()
+    {
+        var request = new HttpRequestMessage(HttpMethod.Get, route2);
+
+        var client = _clientFactory.CreateClient();
+
+        HttpResponseMessage response = await client.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            currency = await response.Content.ReadFromJsonAsync<CurrencyModel>();
+            errorString = null;
+        }
+        else
+        {
+            errorString = $"There was an error getting our currencies: {response.ReasonPhrase}";
+        }
+    }
+}
