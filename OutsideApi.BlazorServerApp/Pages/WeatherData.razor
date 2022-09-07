@@ -1,0 +1,49 @@
+﻿@page "/weather"
+
+@inject IOpenWeatherMapService _weatherService
+
+<h3>WeatherData</h3>
+<h2>@location</h2>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (forecast is null)
+{
+    <div class="h4">Loading...</div>
+
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Temperature</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@DateTime.FromFileTime(forecast.dt)</td>
+                <td>@forecast.main.temp</td>
+                <td>@forecast.weather.FirstOrDefault().description</td>
+            </tr>
+
+        </tbody>
+    </table>
+}
+
+@code {
+    OpenWeatherMap forecast;
+    string errorString;
+
+    string location = "Turawa";
+    const string appId = "8697a4a54557736fd791b25a05b85624";
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecast = await _weatherService.Retrive(location, appId);
+    }
+}

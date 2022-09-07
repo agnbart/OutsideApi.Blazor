@@ -1,0 +1,45 @@
+﻿@page "/bitcoin"
+
+@inject IBitcoinMapService _bitcoinService
+
+<h3>Bitcoin Data</h3>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (coin is null)
+{
+    <div class="h4">Loading...</div>
+
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+                <tr>
+                    <td>@coin.first_data_at</td>
+                    <td>@coin.name</td>
+                    <td>@coin.description</td>
+                </tr>
+        </tbody>
+    </table>
+}
+
+@code {
+
+    BitcoinMap coin;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        coin = await _bitcoinService.Retrive();
+    }
+}
