@@ -11,12 +11,12 @@ namespace OutsideApi.Infostructure.ConnectedServices
     public class ExchangeRates : IExchangeRates
     {
         private string results = "100";
-        public async Task<Currency> Retrive(string numberOfResults)
+        public async Task<Currency> Retrive(string currency, string numberOfResults)
         {
             using (var client = new HttpClient())
             {
                 var result = await client
-                    .GetAsync($@"http://api.nbp.pl/api/exchangerates/rates/a/gbp/last/{numberOfResults}/?format=json");
+                    .GetAsync($@"http://api.nbp.pl/api/exchangerates/rates/a/{currency}/last/{numberOfResults}/?format=json");
 
                 if (result is null) throw new Exception("No data.");
 

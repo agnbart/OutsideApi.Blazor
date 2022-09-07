@@ -11,7 +11,7 @@ namespace OutsideApi.Domain.Entities
         public string? table { get; set; }
         public string? currency { get; set; }
         public string? code { get; set; }
-        public Rate[]? rates { get; set; }
+        public List<Rate>? rates { get; set; }
     }
     public class Rate
     {

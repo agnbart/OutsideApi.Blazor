@@ -9,6 +9,6 @@ namespace OutsideApi.Infostructure.ConnectedServices
 {
     public interface IExchangeRates
     {
-        Task<Currency> Retrive(string numberOfResults);
+        Task<Currency> Retrive(string currency, string numberOfResults);
     }
 }

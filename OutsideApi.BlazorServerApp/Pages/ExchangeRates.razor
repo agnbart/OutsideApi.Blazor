@@ -2,7 +2,7 @@
 
 @inject IExchangeRates _exchangeRates
 
-<h1>Rates from NBP API</h1>
+<h1>Rates from NBP for currency: @currency.currency</h1>
 
 @if (string.IsNullOrWhiteSpace(errorString) == false)
 {
@@ -37,10 +37,10 @@ else
 @code
 {
     Currency? currency;
-    string errorString;
+    string? errorString;
 
     protected override async Task OnInitializedAsync()
     {
-        currency = await _exchangeRates.Retrive("100");
+        currency = await _exchangeRates.Retrive("eur", "100");
     }
 }
