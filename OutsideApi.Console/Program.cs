@@ -1,6 +1,8 @@
 ﻿using OutsideApi.Domain;
 using OutsideApi.Infostructure.ConnectedServices;
+using System.Collections.Generic;
 using System.Net.Http.Json;
+using System.Text.Json;
 
 //string location = "Opole";
 //string appId = "8697a4a54557736fd791b25a05b85624";
@@ -18,5 +20,5 @@ IBitcoinMapService _bitcoinMapService = new BitcoinMapService();
 var result = await _bitcoinMapService.Retrive();
 
 Console.WriteLine($"Name: {result.name}");
-Console.WriteLine($"Description: {result.symbol}");
-Console.WriteLine($"Rank: {result.rank}");
+Console.WriteLine($"Symbol: {result.symbol}");
+Console.WriteLine($"Description: {result.description}");

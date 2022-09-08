@@ -1,0 +1,47 @@
+﻿@page "/newfreebook"
+
+@using System.Text.Json
+@using System.Text.Json.Serialization
+@inject IFreeBookMapService _freeBook
+
+<h3>New Free Book Data</h3>
+
+@if (string.IsNullOrWhiteSpace(errorString) == null)
+{
+    <div class="h2">@errorString</div>
+}
+else if (freeBook == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table table-dark">
+       <thead class="accordion-body">
+            <tr>
+                <td>Name</td>
+                <td>Slug</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var b in freeBook)
+            {
+                <tr>
+                    <td>@freeBook</td>
+                    <td>slug</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    FreeBookMap? freeBook;
+    string? errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        freeBook = await _freeBook.Retrive();
+    }
+}
