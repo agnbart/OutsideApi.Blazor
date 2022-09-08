@@ -1,0 +1,47 @@
+﻿@page "/booksofauthor"
+
+@inject IBooksOfAuthorService _booksOfAuthorService
+
+<h3>"Wolne lektury"</h3>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (bookOfAuthorList is null)
+{
+    <div class="h4">Loading...</div>
+
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Kind</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in bookOfAuthorList)
+            {
+                <tr>
+                    <td>@book.author</td>
+                    <td>@book.title</td>
+                    <td>@book.kind</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<BooksOfAuthorMap> bookOfAuthorList;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        bookOfAuthorList = await _booksOfAuthorService.Retrive();
+    }
+}

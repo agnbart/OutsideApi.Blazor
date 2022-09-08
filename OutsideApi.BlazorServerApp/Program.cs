@@ -11,6 +11,8 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<IOpenWeatherMapService, OpenWeatherMapService>();
 builder.Services.AddSingleton<IBitcoinMapService, BitcoinMapService>();
+builder.Services.AddSingleton<IFreeBookMapService, FreeBookMapService>();
+builder.Services.AddSingleton<IBooksOfAuthorService, BooksOfAuthorService>();
 
 var app = builder.Build();
 
