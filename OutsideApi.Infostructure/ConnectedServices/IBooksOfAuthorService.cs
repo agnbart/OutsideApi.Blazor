@@ -1,4 +1,6 @@
-﻿namespace OutsideApi.Infostructure.ConnectedServices
+﻿using OutsideApi.Domain;
+
+namespace OutsideApi.Infostructure.ConnectedServices
 {
     public interface IBooksOfAuthorService
     {

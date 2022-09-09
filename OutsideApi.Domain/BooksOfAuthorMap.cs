@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OutsideApi.Infostructure.ConnectedServices
+namespace OutsideApi.Domain
 {
     public class BooksOfAuthorMap
     {
@@ -22,7 +22,6 @@ namespace OutsideApi.Infostructure.ConnectedServices
         public string simple_thumb { get; set; }
         public string slug { get; set; }
         public string cover_thumb { get; set; }
-        public object liked { get; set; }
     }
 
 }
