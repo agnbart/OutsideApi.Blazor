@@ -20,3 +20,7 @@ var result = await _bitcoinMapService.Retrive();
 Console.WriteLine($"Name: {result.name}");
 Console.WriteLine($"Description: {result.symbol}");
 Console.WriteLine($"Rank: {result.rank}");
+
+//IFreeBookMapService _free = new FreeBookMapService();
+//var result = await _free.Retrive();
+//Console.WriteLine(result);

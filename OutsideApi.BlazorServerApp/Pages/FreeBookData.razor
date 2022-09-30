@@ -1,0 +1,45 @@
+﻿@page "/freebook"
+
+@inject IFreeBookMapService _freeBookService
+
+<h3>"Wolne lektury"</h3>
+
+@if (string.IsNullOrWhiteSpace(errorString) == false)
+{
+    <div class="h2">@errorString</div>
+}
+else if (freeList is null)
+{
+    <div class="h4">Loading...</div>
+
+}
+else
+{
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Url</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var book in freeList)
+            {
+                <tr>
+                    <td>@book.title</td>
+                    <td><a href="@book.url" target="=_blank">@book.url</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    List<FreeBookMap> freeList;
+    string errorString;
+
+    protected override async Task OnInitializedAsync()
+    {
+        freeList = await _freeBookService.Retrive();
+    }
+}
